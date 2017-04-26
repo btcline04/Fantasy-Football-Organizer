@@ -8,5 +8,4 @@ class TeamsController < ApplicationController
       redirect to "/login"
   end
 
-
 end

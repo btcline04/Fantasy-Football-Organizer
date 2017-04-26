@@ -18,4 +18,12 @@ class UsersController < ApplicationController
       redirect to "/teams"
     end 
   end
+
+  get '/login' do 
+    if !logged_in?
+      erb :'users/login'
+    else
+      redirect to "/teams"
+    end
+  end
 end
