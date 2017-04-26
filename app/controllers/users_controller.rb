@@ -37,4 +37,17 @@ class UsersController < ApplicationController
     end
   end
 
+  get '/users/:id'
+    if !logged_in?
+      redirect to "/teams"
+    end
+
+    @user = User.find(params[:id])
+    if !@user.nil? && @user == current_user
+      erb :'users/show'
+    else
+      redirect to "/teams"
+    end
+  end
+
 end

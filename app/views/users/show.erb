@@ -1,0 +1,6 @@
+<%= @user.username %>
+
+<% @user.teams.each do |t| %>
+  <%= t.name %>
+  <%= t.roster_size %>
+<% end %>
