@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
 
   get '/signup' do
-    if logged_in?
-      redirect to "/tweets"
+    if !session[:user_id]
+      erb :'users/new'
     else
-      erb :'users/new'    
+      redirect to "/teams"
     end
   end
 
@@ -14,13 +14,13 @@ class UsersController < ApplicationController
     else
       @user = User.create(params)
       @user.save
-      session[:id] = @user.id
+      session[:user_id] = @user.id
       redirect to "/teams"
     end 
   end
 
   get '/login' do 
-    if !logged_in?
+    if !session[:user_id]
       erb :'users/login'
     else
       redirect to "/teams"
@@ -34,19 +34,6 @@ class UsersController < ApplicationController
       redirect to "/teams"
     else
       redirect to "/signup"
-    end
-  end
-
-  get '/users/:id'
-    if !logged_in?
-      redirect to "/teams"
-    end
-
-    @user = User.find(params[:id])
-    if !@user.nil? && @user == current_user
-      erb :'users/show'
-    else
-      redirect to "/teams"
     end
   end
 

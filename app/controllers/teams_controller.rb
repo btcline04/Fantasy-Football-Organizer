@@ -8,4 +8,13 @@ class TeamsController < ApplicationController
       redirect to "/login"
     end
   end
+
+  get '/teams/new' do 
+    if logged_in?
+      erb :'teams/new'
+    else
+      redirect to "/login"
+    end
+  end
+  
 end
