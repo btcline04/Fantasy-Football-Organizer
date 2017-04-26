@@ -1,10 +1,10 @@
 class UsersController < ApplicationController
 
   get '/signup' do
-    if !session[:user_id]
-      erb :'users/new'
+    if logged_in?
+      redirect to "/tweets"
     else
-      redirect "/"
+      erb :'users/new'    
     end
   end
 
@@ -12,10 +12,10 @@ class UsersController < ApplicationController
     if params[:username].empty? || params[:password].empty?
       redirect to "/signup"
     else
-      binding.pry
       @user = User.create(params)
       @user.save
       session[:id] = @user.id
+      redirect to "/teams"
     end 
   end
 end
