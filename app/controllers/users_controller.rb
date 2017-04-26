@@ -26,4 +26,15 @@ class UsersController < ApplicationController
       redirect to "/teams"
     end
   end
+
+  post '/login' do 
+    @user = User.find_by(username: params[:username])
+    if @user && @user.authenticate(params[:password])
+      session[:id] = @user.id
+      redirect to "/teams"
+    else
+      redirect to "/signup"
+    end
+  end
+
 end
