@@ -22,8 +22,10 @@ class TeamsController < ApplicationController
 
   get '/teams/:id/edit' do
     redirect_if_not_logged_in
-    @team - Team.find(params[:id])
+    @team = Team.find(params[:id])
     erb :'teams/edit'
   end
+
+  post '/teams/:id/edit' do 
 
 end

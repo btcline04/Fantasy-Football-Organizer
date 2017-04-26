@@ -1,8 +1,0 @@
-<h1> Edit <%= @team.name %></h1>
-
-<form action="/teams/<%= @team.id %>" method="POST">
-  <p>Team Name: <input type="text" name="name" value="<%= @team.name%>"></p>
-  <p>Roster Size: <input type="text" name="roster_size" value="<%= @team.roster_size %>"></p>
-  <input type="submit" value="Update">
-  
-</form>
