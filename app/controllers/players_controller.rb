@@ -19,5 +19,11 @@ class PlayersController < ApplicationController
       redirect to "/players"
     end
   end
+
+  get '/players/:id' do 
+    redirect_if_not_logged_in
+    @player = Player.find_by_id(params[:id])
+    erb :'players/show'
+  end
   
 end
