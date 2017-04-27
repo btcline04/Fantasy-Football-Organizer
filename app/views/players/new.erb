@@ -4,5 +4,11 @@
   <p>Name: <input type="text" name="name"></p>
   <p>Number: <input type="text" name="number"></p>
   <p>Position: <input type="text" name="position"></p>
+  <p>What Team Does This Player Belong To?</p>
+    <select name="team_id">
+      <% current_user.teams.each do |t| %>
+        <option value="<%= t.id %>"><%= t.name %></option>
+        <% end %>
+    </select>
   <input type="submit" value="Create Player">
 </form>
