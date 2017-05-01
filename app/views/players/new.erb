@@ -5,10 +5,8 @@
   <p>Number: <input type="text" name="number"></p>
   <p>Position: <input type="text" name="position"></p>
   <p>What Team Does This Player Belong To?</p>
-    <select name="team_id">
-      <% current_user.teams.each do |t| %>
-        <option value="<%= t.id %>"><%= t.name %></option>
-        <% end %>
-    </select>
+    <% @teams.each do |t| %>
+    <input type="checkbox" name="id" value="<%= t.id %>"><%= t.name %></input>
+    <% end %>
   <input type="submit" value="Create Player">
 </form>

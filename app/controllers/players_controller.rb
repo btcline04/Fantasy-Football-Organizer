@@ -8,6 +8,7 @@ class PlayersController < ApplicationController
 
   get '/players/new' do 
     redirect_if_not_logged_in
+    @teams = Team.all
     erb :'players/new'
   end
 
@@ -15,8 +16,7 @@ class PlayersController < ApplicationController
     if params[:name].empty? || params[:number].empty? || params[:position].empty?
       redirect to "/players/new"
     else
-      @player = Player.create(params)
-      binding.pry
+      @player = Player.create(name: params[:name], number: params[:number], position: params[:position], team_id: params[:id])
       redirect to "/players"
     end
   end
@@ -37,7 +37,7 @@ class PlayersController < ApplicationController
     if params[:name].empty? || params[:number].empty? || params[:position].empty?
       redirect to "/players/#{params[:id]}/edit"
     else
-      @player = Player.find(params[:id])
+      @player = Player.find_by_id(params[:id])
       @player.name = params[:name]
       @player.number = params[:number]
       @player.position = params[:position]
