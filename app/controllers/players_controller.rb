@@ -16,7 +16,9 @@ class PlayersController < ApplicationController
     if params[:name].empty? || params[:number].empty? || params[:position].empty?
       redirect to "/players/new"
     else
+      binding.pry
       @player = Player.create(name: params[:name], number: params[:number], position: params[:position], team_id: params[:id])
+      binding.pry
       redirect to "/players"
     end
   end
@@ -38,9 +40,12 @@ class PlayersController < ApplicationController
       redirect to "/players/#{params[:id]}/edit"
     else
       @player = Player.find_by_id(params[:id])
+      binding.pry
       @player.name = params[:name]
       @player.number = params[:number]
       @player.position = params[:position]
+      @player.team_id = params[:team_id]
+      binding.pry
       @player.save
       redirect to "/players/#{@player.id}"
     end
