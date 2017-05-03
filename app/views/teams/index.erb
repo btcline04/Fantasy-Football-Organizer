@@ -1,12 +1,12 @@
 <h1>Your Teams</h1>
 
 <% @teams.each do |t| %>
-  <%= t.name %>
-  <%= t.roster_size %>
+  <%= t.name %> -- <%= t.roster_size %> players
   <br>
   <br>
   <a href="/teams/<%= t.id %>/edit">Edit This Team</a>
   <br>
   <br>
   <a href="/teams/new">Create A New Team</a>
+  <br><br>
 <% end %>
