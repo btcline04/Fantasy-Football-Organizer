@@ -1,1 +1,1 @@
-# mvc-ff-sinatra-final
+Fork, clone run shotgun and open in your browser to access functionality.
