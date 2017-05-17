@@ -3,7 +3,7 @@
 
  ## Installation
       1. Fork & clone the repository
-      2. Run `bundle install` to download the gemfile
+      2. Run `bundle install` to install needed gems
       3. Run `rake db:migrate` 
       4. Run `shotgun` to access the local server
       5. Open the localhost in your browser to begin
