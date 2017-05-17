@@ -9,7 +9,7 @@ class TeamsController < ApplicationController
 
   get '/teams' do
     redirect_if_not_logged_in
-    @teams = Team.all
+    @teams = current_user.teams
     erb :'teams/index'
   end
 
@@ -19,12 +19,11 @@ class TeamsController < ApplicationController
   end
 
   post '/teams/new' do
-    if params[:name].empty? || params[:roster_size].empty?
-      redirect to "/teams/new"
+    @team = current_user.teams.build(params)
+    if @team.save
+      redirect to "/teams"
     else
-      # build
-    @team = Team.create(params)
-    redirect to "/teams"
+      redirect to "/teams/new"
     end
   end
 
@@ -36,7 +35,7 @@ class TeamsController < ApplicationController
 
   get '/teams/:id/edit' do
     redirect_if_not_logged_in
-    @team = Team.find(params[:id])
+    @team = current_user.teams.find(params[:id])
     erb :'teams/edit'
   end
 
@@ -45,9 +44,9 @@ class TeamsController < ApplicationController
     @team.name = params[:name]
     @team.roster_size = params[:roster_size]
     if @team.save
-      redirect to "/teams/#{params[:id]}/edit"
-    else
       redirect to "/teams/#{@team.id}"
+    else
+      redirect to "/teams/#{params[:id]}/edit"
     end
   end
 end
