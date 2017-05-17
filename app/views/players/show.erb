@@ -2,4 +2,10 @@
 <%= @player.number %> -
 <%= @player.position %> 
 <br>
+<br>
+<form action="/players/<%= @player.id %>/delete" method="POST">
+  <input type="hidden" name="_method" value="DELETE">
+  <input type="submit" value="Delete Player">
+</form>
+<br>
 <a href="/teams/<%= @player.team_id%>"><%= @player.team.name %></a>

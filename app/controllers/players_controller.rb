@@ -46,6 +46,17 @@ class PlayersController < ApplicationController
     end
   end
 
+  delete '/players/:id/delete' do 
+    redirect_if_not_logged_in
+    @player = Player.find_by_id(params[:id])
+    if @player.destroy
+      redirect to "/players"
+    else
+      redirect to "/players/#{params[:id]}/edit"
+    end
+  end
+
+
 end
 
 
