@@ -1,5 +1,12 @@
 class TeamsController < ApplicationController
 
+  # associate a team to user upon creation
+  # filter teams by current_user 
+  # don't let another user edit another users team
+
+  # active record associative methods
+  # http://guides.rubyonrails.org/association_basics.html
+
   get '/teams' do
     redirect_if_not_logged_in
     @teams = Team.all
@@ -15,6 +22,7 @@ class TeamsController < ApplicationController
     if params[:name].empty? || params[:roster_size].empty?
       redirect to "/teams/new"
     else
+      # build
     @team = Team.create(params)
     redirect to "/teams"
     end
@@ -32,7 +40,7 @@ class TeamsController < ApplicationController
     erb :'teams/edit'
   end
 
-  post '/teams/:id' do 
+  put '/teams/:id' do 
     if params[:name].empty? || params[:roster_size].empty?
       redirect to "/teams/#{params[:id]}/edit"
     else
@@ -43,7 +51,4 @@ class TeamsController < ApplicationController
       redirect to "/teams/#{@team.id}"
     end
   end
-
-
-
 end

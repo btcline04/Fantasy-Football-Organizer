@@ -13,13 +13,11 @@ class PlayersController < ApplicationController
   end
 
   post '/players/new' do
-    if params[:name].empty? || params[:number].empty? || params[:position].empty?
-      redirect to "/players/new"
-    else
-      binding.pry
-      @player = Player.create(name: params[:name], number: params[:number], position: params[:position], team_id: params[:id])
-      binding.pry
+    @player = Player.new(name: params[:name], number: params[:number], position: params[:position], team_id: params[:id])
+    if @player.save
       redirect to "/players"
+    else
+      redirect to "/players/new"
     end
   end
 
@@ -35,17 +33,16 @@ class PlayersController < ApplicationController
     erb :'players/edit'
   end
 
-  post '/players/:id' do
-    if params[:name].empty? || params[:number].empty? || params[:position].empty?
-      redirect to "/players/#{params[:id]}/edit"
-    else
-      @player = Player.find_by_id(params[:id])
-      @player.name = params[:name]
-      @player.number = params[:number]
-      @player.position = params[:position]
-      @player.team_id = params[:team_id]
-      @player.save
+  put '/players/:id' do
+    @player = Player.find_by_id(params[:id])
+    @player.name = params[:name]
+    @player.number = params[:number]
+    @player.position = params[:position]
+    @player.team_id = params[:team_id]
+    if @player.save
       redirect to "/players/#{@player.id}"
+    else
+      redirect to "/players/#{params[:id]}/edit"
     end
   end
 

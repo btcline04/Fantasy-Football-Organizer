@@ -2,6 +2,7 @@
 <br>
 
 <form action="/players/<%= @player.id %>" method="POST">
+<input type="hidden" name="_method" value="PUT">
   <p>Name: <input type="text" name="name" value="<%= @player.name %>"></p>
   <p>Number: <input type="text" name="number" value="<%= @player.number %>"></p>
   <p>Position: <input type="text" name="position" value="<%= @player.position %>"></p>

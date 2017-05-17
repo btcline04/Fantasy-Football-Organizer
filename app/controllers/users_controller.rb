@@ -9,18 +9,17 @@ class UsersController < ApplicationController
   end
 
   post '/signup' do
-    if params[:username].empty? || params[:password].empty?
-      redirect to "/signup"
-    else
-      @user = User.create(params)
-      @user.save
+    @user = User.new(params)
+    if @user.save
       session[:user_id] = @user.id
       redirect to "/teams"
-    end 
+    else 
+      redirect to "/signup"
+    end
   end
 
   get '/login' do 
-    if !session[:user_id]
+    if !logged_in?
       erb :'users/login'
     else
       redirect to "/teams"
@@ -30,7 +29,7 @@ class UsersController < ApplicationController
   post '/login' do 
     @user = User.find_by(username: params[:username])
     if @user && @user.authenticate(params[:password])
-      session[:id] = @user.id
+      session[:user_id] = @user.id
       redirect to "/teams"
     else
       redirect to "/signup"
@@ -38,7 +37,7 @@ class UsersController < ApplicationController
   end
 
   get '/logout' do 
-    if session[:user_id] != nil
+    if logged_in?
       session.destroy
       redirect to "/login"
     else
