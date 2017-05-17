@@ -1,12 +1,5 @@
 class TeamsController < ApplicationController
 
-  # associate a team to user upon creation
-  # filter teams by current_user 
-  # don't let another user edit another users team
-
-  # active record associative methods
-  # http://guides.rubyonrails.org/association_basics.html
-
   get '/teams' do
     redirect_if_not_logged_in
     @teams = current_user.teams

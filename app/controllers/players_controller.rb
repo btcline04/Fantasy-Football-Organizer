@@ -1,5 +1,6 @@
 class PlayersController < ApplicationController
 
+# ask Luke how to get current_user.players to function properly, i.e. associate players with a user along w/ a team
   get '/players' do 
     redirect_if_not_logged_in
     @players = Player.all 
