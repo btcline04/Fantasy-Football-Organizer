@@ -8,7 +8,7 @@ class PlayersController < ApplicationController
 
   get '/players/new' do 
     redirect_if_not_logged_in
-    @teams = Team.all
+    @teams = current_user.teams
     erb :'players/new'
   end
 
