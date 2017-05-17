@@ -41,13 +41,12 @@ class TeamsController < ApplicationController
   end
 
   put '/teams/:id' do 
-    if params[:name].empty? || params[:roster_size].empty?
+    @team = Team.find_by_id(params[:id])
+    @team.name = params[:name]
+    @team.roster_size = params[:roster_size]
+    if @team.save
       redirect to "/teams/#{params[:id]}/edit"
     else
-      @team = Team.find_by_id(params[:id])
-      @team.name = params[:name]
-      @team.roster_size = params[:roster_size]
-      @team.save
       redirect to "/teams/#{@team.id}"
     end
   end
