@@ -32,14 +32,17 @@ class TeamsController < ApplicationController
     erb :'teams/edit'
   end
 
-  put '/teams/:id' do 
+  put '/teams/:id' do
+    redirect_if_not_logged_in
     @team = Team.find_by_id(params[:id])
-    @team.name = params[:name]
-    @team.roster_size = params[:roster_size]
-    if @team.save
-      redirect to "/teams/#{@team.id}"
+    if @team && @team.user == current_user
+      if @team.update(name: params[:name], roster_size: params[:roster_size])
+        redirect to "/teams/#{@team.id}"
+      else
+        redirect to "/teams/#{params[:id]}/edit"
+      end
     else
-      redirect to "/teams/#{params[:id]}/edit"
+      redirect to "/teams"
     end
   end
 end
